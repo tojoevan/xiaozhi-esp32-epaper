@@ -45,6 +45,15 @@
 #define DISPLAY_OFFSET_X  0
 #define DISPLAY_OFFSET_Y  0
 
+#define SDMMC_D0_PIN    GPIO_NUM_40  
+#define SDMMC_CLK_PIN   GPIO_NUM_39
+#define SDMMC_CMD_PIN   GPIO_NUM_41
+#define SDlist "/sdcard" //Directory, similar to a standard
 
+/*i2c dev*/
+#define I2C_RTC_DEV_Address        0x51
+#define I2C_SHTC3_DEV_Address      0x70
+
+#define SAFE_STR(str) ((str) ? (str) : "<null>")
 
 #endif // _BOARD_CONFIG_H_

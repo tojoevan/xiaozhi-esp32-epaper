@@ -117,7 +117,7 @@ void Application::CheckAssetsVersion() {
     // Apply assets
     assets.Apply();
     display->SetChatMessage("system", "");
-    display->SetEmotion("microchip_ai");
+    // display->SetEmotion("microchip_ai");
 }
 
 void Application::CheckNewVersion(Ota& ota) {
@@ -232,7 +232,7 @@ void Application::Alert(const char* status, const char* message, const char* emo
     ESP_LOGW(TAG, "Alert [%s] %s: %s", emotion, status, message);
     auto display = Board::GetInstance().GetDisplay();
     display->SetStatus(status);
-    display->SetEmotion(emotion);
+    // display->SetEmotion(emotion);
     display->SetChatMessage("system", message);
     if (!sound.empty()) {
         audio_service_.PlaySound(sound);
@@ -243,7 +243,7 @@ void Application::DismissAlert() {
     if (device_state_ == kDeviceStateIdle) {
         auto display = Board::GetInstance().GetDisplay();
         display->SetStatus(Lang::Strings::STANDBY);
-        display->SetEmotion("neutral");
+        // display->SetEmotion("neutral");
         display->SetChatMessage("system", "");
     }
 }
@@ -445,6 +445,7 @@ void Application::Start() {
     protocol_->OnIncomingJson([this, display](const cJSON* root) {
         // Parse JSON data
         auto type = cJSON_GetObjectItem(root, "type");
+        ESP_LOGI("右右", "OnIncomingJson 消息: %s", type->valuestring);
         if (strcmp(type->valuestring, "tts") == 0) {
             auto state = cJSON_GetObjectItem(root, "state");
             if (strcmp(state->valuestring, "start") == 0) {
@@ -483,11 +484,12 @@ void Application::Start() {
             }
         } else if (strcmp(type->valuestring, "llm") == 0) {
             auto emotion = cJSON_GetObjectItem(root, "emotion");
-            if (cJSON_IsString(emotion)) {
-                Schedule([this, display, emotion_str = std::string(emotion->valuestring)]() {
-                    display->SetEmotion(emotion_str.c_str());
-                });
-            }
+            ESP_LOGI("右右", "OnIncomingJson 消息: %s", emotion->valuestring);
+            // if (cJSON_IsString(emotion)) {
+            //     Schedule([this, display, emotion_str = std::string(emotion->valuestring)]() {
+            //         display->SetEmotion(emotion_str.c_str());
+            //     });
+            // }
         } else if (strcmp(type->valuestring, "mcp") == 0) {
             auto payload = cJSON_GetObjectItem(root, "payload");
             if (cJSON_IsObject(payload)) {
@@ -687,18 +689,18 @@ void Application::SetDeviceState(DeviceState state) {
         case kDeviceStateUnknown:
         case kDeviceStateIdle:
             display->SetStatus(Lang::Strings::STANDBY);
-            display->SetEmotion("neutral");
+            // display->SetEmotion("neutral");
             audio_service_.EnableVoiceProcessing(false);
             audio_service_.EnableWakeWordDetection(true);
             break;
         case kDeviceStateConnecting:
             display->SetStatus(Lang::Strings::CONNECTING);
-            display->SetEmotion("neutral");
+            // display->SetEmotion("neutral");
             display->SetChatMessage("system", "");
             break;
         case kDeviceStateListening:
             display->SetStatus(Lang::Strings::LISTENING);
-            display->SetEmotion("neutral");
+            // display->SetEmotion("neutral");
 
             // Make sure the audio processor is running
             if (!audio_service_.IsAudioProcessorRunning()) {

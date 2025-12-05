@@ -176,3 +176,7 @@ std::string Board::GetSystemInfoJson() {
     json += R"(})";
     return json;
 }
+
+int Board::example_start_file_server() {
+    return ESP_OK;
+}

@@ -30,6 +30,7 @@ protected:
     std::string uuid_;
 
 public:
+    bool isChangePoem;
     static Board& GetInstance() {
         static Board* instance = static_cast<Board*>(create_board());
         return *instance;
@@ -52,6 +53,7 @@ public:
     virtual void SetPowerSaveMode(bool enabled) = 0;
     virtual std::string GetBoardJson() = 0;
     virtual std::string GetDeviceStatusJson() = 0;
+    virtual int example_start_file_server();
 };
 
 #define DECLARE_BOARD(BOARD_CLASS_NAME) \

@@ -492,7 +492,7 @@ void LcdDisplay::SetupUI() {
     lv_obj_center(emoji_label_);
     lv_obj_set_style_text_font(emoji_label_, large_icon_font, 0);
     lv_obj_set_style_text_color(emoji_label_, lvgl_theme->text_color(), 0);
-    lv_label_set_text(emoji_label_, FONT_AWESOME_MICROCHIP_AI);
+    // lv_label_set_text(emoji_label_, FONT_AWESOME_MICROCHIP_AI);
 }
 #if CONFIG_IDF_TARGET_ESP32P4
 #define  MAX_MESSAGES 40
@@ -803,7 +803,7 @@ void LcdDisplay::SetupUI() {
     emoji_label_ = lv_label_create(emoji_box_);
     lv_obj_set_style_text_font(emoji_label_, large_icon_font, 0);
     lv_obj_set_style_text_color(emoji_label_, lvgl_theme->text_color(), 0);
-    lv_label_set_text(emoji_label_, FONT_AWESOME_MICROCHIP_AI);
+    // lv_label_set_text(emoji_label_, FONT_AWESOME_MICROCHIP_AI);
 
     emoji_image_ = lv_img_create(emoji_box_);
     lv_obj_center(emoji_image_);
